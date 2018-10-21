@@ -29,6 +29,7 @@ merged = pd.concat([train, test], sort = False)
 display(merged.shape) #1309 rows of data, 12 variables
 
 display(merged.columns)
+display(merged.dtypes)
 '''Index(['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp',
        'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked'],
       dtype='object')'''
@@ -46,7 +47,7 @@ absolute_and_relative_freq(merged.SibSp)
 absolute_and_relative_freq(merged.Embarked)
 absolute_and_relative_freq(merged.Parch)
 '''
-###Let's go through numerical data now
+'''
 histogram(merged.Fare)
 density_plot(merged.Fare)
 bold('**Summary Stats of Fare:**')
@@ -56,4 +57,17 @@ histogram(merged.Age)
 density_plot(merged.Age)
 bold('**Summary Stats of Age:**')
 summary_stats(merged.Age)
+'''
 
+#Now we should be concerned about missing values, and feature engineering in general
+#for instance Cabin has a lot of empty data
+
+bold('**Missing Values in Cabin:**')
+display(merged.Cabin.isnull().sum()) #1000 data
+merged.Cabin.fillna(value = 'X', inplace = True)
+merged.Cabin = merged.Cabin.apply( lambda x : x[0])
+display(merged.Cabin.value_counts())
+
+#In name we can obtain the honorifics
+merged['Title'] = merged.Name.str.extract('([A-Za-z]+)\.')
+display(merged.Title.value_counts())

@@ -1,12 +1,9 @@
 import matplotlib.pyplot as plt #data visualization
 import pandas as pd
 from IPython.display import Markdown, display
-'''To analyse categorical variables, we will create three custom functions.
-The first two functions displays bar labels in absolute and relative scale respectively. And the 3rd one creates a dataframe of absolute and relative and also generates abs and relative frequency plot for each variable.'''
 
-''' #1.Function for displaying bar labels in absolute scale.'''
-def abs_bar_labels(ax):
-    font_size = 15
+#Bar Graph Absolute Scale
+def abs_bar_labels(ax, font_size=15):
     plt.ylabel('Absolute Frequency', fontsize = font_size)
     plt.xticks(rotation = 0, fontsize = font_size)
     plt.yticks([])
@@ -17,9 +14,8 @@ def abs_bar_labels(ax):
         (x.get_x() + x.get_width()/2., x.get_height()), ha = 'center', va = 'center', xytext = (0, 7),
         textcoords = 'offset points', fontsize = font_size, color = 'black')
 
-'''#2.Function for displaying bar lebels in relative scale.'''
-def pct_bar_labels(ax):
-    font_size = 15
+#Bar graph in Relative scale
+def pct_bar_labels(ax, font_size = 15):
     plt.ylabel('Relative Frequency (%)', fontsize = font_size)
     plt.xticks(rotation = 0, fontsize = font_size)
     plt.yticks([])
@@ -47,7 +43,7 @@ def absolute_and_relative_freq(variable):
     ax =  absolute_frequency.plot.bar(title = 'Absolute Frequency of %s' %variable.name, figsize = fig_size)
     ax.title.set_size(title_size)
     abs_bar_labels(ax)  # Displays bar labels in abs scale.
-    plt.show(block = False)
+    plt.show()
     plt.figure(2)
     # This portion plots relative frequency with bar labeled.
     ax1 = relative_frequency.plot.bar(title = 'Relative Frequency of %s' %variable.name, figsize = fig_size)
