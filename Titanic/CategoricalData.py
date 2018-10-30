@@ -43,7 +43,7 @@ def absolute_and_relative_freq(variable):
     ax =  absolute_frequency.plot.bar(title = 'Absolute Frequency of %s' %variable.name, figsize = fig_size)
     ax.title.set_size(title_size)
     abs_bar_labels(ax)  # Displays bar labels in abs scale.
-    plt.show()
+    plt.show(block = False)
     plt.figure(2)
     # This portion plots relative frequency with bar labeled.
     ax1 = relative_frequency.plot.bar(title = 'Relative Frequency of %s' %variable.name, figsize = fig_size)

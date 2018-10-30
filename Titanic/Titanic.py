@@ -5,6 +5,7 @@ import missingno as mn #visualizing missing data
 import matplotlib.pyplot as plt #data visualization
 from CategoricalData import *
 from NumericalData import *
+from BoxPlots import *
 from scipy import stats #statistics
 
 # plt.style.use('bmh')
@@ -71,3 +72,39 @@ display(merged.Cabin.value_counts())
 #In name we can obtain the honorifics
 merged['Title'] = merged.Name.str.extract('([A-Za-z]+)\.')
 display(merged.Title.value_counts())
+
+merged.Title.replace(to_replace = ['Dr', 'Rev', 'Col', 'Major', 'Capt'], value = 'Officer', inplace = True)
+merged.Title.replace(to_replace = ['Dona', 'Jonkheer', 'Countess', 'Sir', 'Lady', 'Don'], value = 'Aristocrat', inplace = True)
+merged.Title.replace({'Mlle':'Miss', 'Ms':'Miss', 'Mme':'Mrs'}, inplace = True)
+# absolute_and_relative_freq(merged.Title)
+
+merged['Family_size'] = merged.SibSp + merged.Parch + 1  # Adding 1 for single person
+display(merged.Family_size.value_counts())
+merged.Family_size.replace(to_replace = [1], value = 'single', inplace = True)
+merged.Family_size.replace(to_replace = [2,3], value = 'small', inplace = True)
+merged.Family_size.replace(to_replace = [4,5], value = 'medium', inplace = True)
+merged.Family_size.replace(to_replace = [6, 7, 8, 11], value = 'large', inplace = True)
+# absolute_and_relative_freq(merged.Family_size)
+
+ticket = []
+for x in list(merged.Ticket):
+    if x.isdigit():
+        ticket.append('N')
+    else:
+        ticket.append(x.replace('.','').replace('/','').strip().split(' ')[0])
+
+merged.Ticket = ticket
+
+
+'''Count the categories in Ticket.'''
+bold('**Categories of Ticket:**')
+display(merged.Ticket.value_counts())
+merged.Ticket = merged.Ticket.apply(lambda x : x[0])
+bold('**Ticket after Processing:**')
+display(merged.Ticket.value_counts())
+
+'''After processing, visualise and count the absolute and relative frequency of updated Ticket.'''
+# absolute_and_relative_freq(merged.Ticket)
+
+# outliers(merged.Age)
+# outliers(merged.Fare)
