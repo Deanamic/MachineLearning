@@ -7,8 +7,8 @@ struct cosa {
 };
 
 int main() {
-  freopen("submission-knn.csv", "r", stdin);
-  freopen("submission-knn-send.csv", "w", stdout);
+  freopen("submission-etc.csv", "r", stdin);
+  freopen("submission-etc-send.csv", "w", stdout);
   string rip;
   cin >> rip;
   cout << rip << endl;
