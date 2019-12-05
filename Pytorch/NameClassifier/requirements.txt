@@ -1,4 +1,4 @@
-pillo>==6.2.0
+pillo>=6.2.0
 torch
 torchvision
 jupyter
